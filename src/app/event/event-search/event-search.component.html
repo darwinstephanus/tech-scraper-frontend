@@ -13,47 +13,47 @@
 
         <div class="form-group">
             <label for="startDate1">StartDate1:</label>
-            <input [(ngModel)]="eventDTO.startDate1" placeholder="yyyy-MM-dd" name="StartDate1" class="form-control" id="startDate1">
+            <input [(ngModel)]="eventDTO.startDate1" placeholder="yyyy-MM-dd" name="StartDate1" class="form-control" type = "date" id="startDate1">
         </div>
 
         <div class="form-group">
             <label for="username">StartDate2:</label>
-            <input [(ngModel)]="eventDTO.startDate2" placeholder="yyyy-MM-dd" name="StartDate2" class="form-control" id="startDate2">
+            <input [(ngModel)]="eventDTO.startDate2" placeholder="yyyy-MM-dd" name="StartDate2" class="form-control" type = "date" id="startDate2">
         </div>
 
         <div class="form-group">
             <label for="email">EndDate1:</label>
-            <input [(ngModel)]="eventDTO.endDate1" placeholder="yyyy-MM-dd" name="EndDate1" class="form-control" id="endDate1">
+            <input [(ngModel)]="eventDTO.endDate1" placeholder="yyyy-MM-dd" name="EndDate1" class="form-control" type = "date" id="endDate1">
         </div>
 
         <div class="form-group">
             <label for="username">EndDate2:</label>
-            <input [(ngModel)]="eventDTO.endDate2" placeholder="yyyy-MM-dd" name="EndDate2" class="form-control" id="endDate2">
+            <input [(ngModel)]="eventDTO.endDate2" placeholder="yyyy-MM-dd" name="EndDate2" class="form-control" type = "date" id="endDate2">
         </div>
 
-        <button class="btn btn-success" (click)="getEventsByDTO()">Create</button>
+        <button class="btn btn-success" (click)="getEventsByDTO()">Search</button>
     </form>
 </div>
 
-<div class="col-md-8">
+<div class="col-md-12">
     <h2 class="text-center">List of Events</h2>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Link</th>
+                <th (click)="sortEvents('eventId.name', (order === 'desc' ? 'asc' : 'desc'))">Name <i *ngIf="sortBy === 'eventId.name'" class="fa fa-sort-amount-{{ order === 'desc' ? 'desc': 'asc' }}" aria-hidden="true" ></i></th>
+                <th (click)="sortEvents('location', (order === 'desc' ? 'asc' : 'desc'))">Location <i *ngIf="sortBy === 'location'" class="fa fa-sort-amount-{{ order === 'desc' ? 'desc': 'asc' }}" aria-hidden="true" ></i></th>
+                <th (click)="sortEvents('eventId.startDate', (order === 'desc' ? 'asc' : 'desc'))">Start Date <i *ngIf="sortBy === 'eventId.startDate'" class="fa fa-sort-amount-{{ order === 'desc' ? 'desc': 'asc' }}" aria-hidden="true" ></i></th>
+                <th (click)="sortEvents('endDate', (order === 'desc' ? 'asc' : 'desc'))">End Date <i *ngIf="sortBy === 'endDate'" class="fa fa-sort-amount-{{ order === 'desc' ? 'desc': 'asc' }}" aria-hidden="true" ></i></th>
+                <th class='text-center'>Link</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let event of events">
-                <td>{{event.eventId.name}}</td>
+                <td width="30%">{{event.eventId.name}}</td>
                 <td>{{event.location}}</td>
-                <td>{{event.eventId.startDate}}</td>
-                <td>{{event.endDate}}.substring(0,10)</td>
-                <td>{{event.link}}</td>
+                <td>{{event.eventId.startDate | date}}</td>
+                <td>{{event.endDate | date }}</td>
+                <td class="text-center"><a href="{{event.link}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
             </tr>
         </tbody>
     </table>

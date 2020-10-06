@@ -5,7 +5,7 @@ export class Event {
   constructor(
     public eventId: EventId,
     public location: string,
-    public endDate: string,
+    public endDate: Date,
     public link: string
   ) { }
 }
@@ -13,7 +13,7 @@ export class Event {
 export class EventId {
   constructor(
     public name: string,
-    public startDate: string
+    public startDate: Date
   ) {}
 }
 
@@ -28,18 +28,6 @@ export class EventDTO {
   ) { }
 }
 
-export class EventDTOSorted {
-  constructor(
-    public name: string,
-    public location: string,
-    public startDate1: string,
-    public startDate2: string,
-    public endDate1: string,
-    public endDate2: string,
-    public sortedBy: string
-  ) { }
-}
-
 @Injectable({
   providedIn: 'root'
 })
@@ -49,9 +37,9 @@ export class EventService {
 
   private urlBackEnd = 'http://localhost:8080/';
 
-  public getEvents() {
-    return this.httpClient.get<Event[]>(this.urlBackEnd + 'api/events');
-  }
+  // public getEvents() {
+  //   return this.httpClient.get<Event[]>(this.urlBackEnd + 'api/events');
+  // }
 
   // public getEventsSortedByName(name) {
   //   return this.httpClient.get<Event>('http://localhost:8080/api/events' + '/?sort=' + name );
@@ -75,13 +63,13 @@ export class EventService {
     + eventDTO.endDate1 + '&endDateLt=' + eventDTO.endDate2 );
   }
 
-  public getEventsSorted(sortBy) {
-    return this.httpClient.get<Event[]>('http://localhost:8080/api/events' + '/?sort=' + sortBy);
+  public getEvents(sortBy = 'eventId.name', ascending = 'asc') {
+    return this.httpClient.get<Event[]>('http://localhost:8080/api/events' + '/?sort=' + sortBy + ',' + ascending);
   }
 
-  public getEventsByDTOSorted(eventDTOSorted: EventDTOSorted) {
-    return this.httpClient.get<Event[]>('http://localhost:8080/api/events' + '/?name=' + eventDTOSorted.name + '&location='
-    + eventDTOSorted.location + '&startDateGt=' + eventDTOSorted.startDate1 + '&startDateLt=' + eventDTOSorted.startDate2 + '&endDateGt='
-    + eventDTOSorted.endDate1 + '&eventDateLt=' + eventDTOSorted.endDate2 + '&sort=' + eventDTOSorted.sortedBy);
+  public getEventsByDTOSorted(eventDTO: EventDTO, sortBy = 'eventId.name', ascending = 'asc') {
+    return this.httpClient.get<Event[]>('http://localhost:8080/api/events' + '/?name=' + eventDTO.name + '&location='
+    + eventDTO.location + '&startDateGt=' + eventDTO.startDate1 + '&startDateLt=' + eventDTO.startDate2 + '&endDateGt='
+    + eventDTO.endDate1 + '&eventDateLt=' + eventDTO.endDate2 + '&sort=' + sortBy + ',' + ascending);
   }
 }

@@ -1,33 +1,22 @@
-<div class="col-md-6">
-    <h2 class="text-center">Search Event</h2>
-    <form>
-        <div class="form-group">
-            <label for="name">Sorted By:</label>
-            <input type="name" [(ngModel)]="sortBy" placeholder="Event Name" name="name" class="form-control" id="name">
-        </div>
-        <button class="btn btn-success" (click)="getEventsSorted()">Create</button>
-    </form>
-</div>
-
-<div class="col-md-8">
+<div class="col-md-12">
     <h2 class="text-center">List of Events</h2>
     <table class="table table-striped">
         <thead>
             <tr>
-                <th>Name</th>
-                <th>Location</th>
-                <th>Start Date</th>
-                <th>End Date</th>
-                <th>Link</th>
+                <th (click)="sortEvents('eventId.name', (order === 'desc' ? 'asc' : 'desc'))">Name <i *ngIf="sortBy === 'eventId.name'" class="fa fa-sort-amount-{{ order === 'desc' ? 'desc': 'asc' }}" aria-hidden="true" ></i></th>
+                <th (click)="sortEvents('location', (order === 'desc' ? 'asc' : 'desc'))">Location <i *ngIf="sortBy === 'location'" class="fa fa-sort-amount-{{ order === 'desc' ? 'desc': 'asc' }}" aria-hidden="true" ></i></th>
+                <th (click)="sortEvents('eventId.startDate', (order === 'desc' ? 'asc' : 'desc'))">Start Date <i *ngIf="sortBy === 'eventId.startDate'" class="fa fa-sort-amount-{{ order === 'desc' ? 'desc': 'asc' }}" aria-hidden="true" ></i></th>
+                <th (click)="sortEvents('endDate', (order === 'desc' ? 'asc' : 'desc'))">End Date <i *ngIf="sortBy === 'endDate'" class="fa fa-sort-amount-{{ order === 'desc' ? 'desc': 'asc' }}" aria-hidden="true" ></i></th>
+                <th class='text-center'>Link</th>
             </tr>
         </thead>
         <tbody>
             <tr *ngFor="let event of events">
-                <td>{{event.eventId.name}}</td>
+                <td width="30%">{{event.eventId.name}}</td>
                 <td>{{event.location}}</td>
-                <td>{{event.eventId.startDate}}</td>
-                <td>{{event.endDate}}</td>
-                <td>{{event.link}}</td>
+                <td>{{event.eventId.startDate | date}}</td>
+                <td>{{event.endDate | date }}</td>
+                <td class="text-center"><a href="{{event.link}}" target="_blank"><i class="fa fa-external-link" aria-hidden="true"></i></a></td>
             </tr>
         </tbody>
     </table>
