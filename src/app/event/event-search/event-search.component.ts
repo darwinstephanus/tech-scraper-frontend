@@ -17,22 +17,10 @@ export class EventSearchComponent implements OnInit {
   constructor( private eventService: EventService, private router: Router, private activatedRoute: ActivatedRoute) { }
 
   ngOnInit(): void {
-    // this.eventService.getEventsByDTO(this.eventDTO).subscribe(
-    //   response => this.handleSuccessfulResponse(response),
-    // );
   }
 
   handleSuccessfulResponse(response) {
-    // this.events.forEach{
-    //   element => element.endDate = element.endDate.substring(0,10);
-    // }
     this.events = response;
-    // this.events.map(event => {
-    //     event.endDate = event.endDate.substring(0, 5);
-    // })
-    // for (i = 0; i < this.events.length; i++){
-    //   this.events.
-    // }
   }
 
   getEventsByDTO(): void {
@@ -43,8 +31,6 @@ export class EventSearchComponent implements OnInit {
   }
 
   fetchEvents(): void{
-    // console.log('sortBy: ', this.sortBy);
-    // console.log('order: ',this.order);
     this.eventService.getEventsByDTOSorted(this.eventDTO, this.sortBy, this.order).subscribe(
       response => this.handleSuccessfulResponse(response),
     );

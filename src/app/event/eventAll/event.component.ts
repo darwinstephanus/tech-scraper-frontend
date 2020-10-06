@@ -27,8 +27,8 @@ export class EventComponent implements OnInit {
 
     //default
     if(this.sortBy == null){
-      this.sortBy = 'eventId.name'
-      this.order = 'asc'
+      this.sortBy = 'eventId.name';
+      this.order = 'asc';
     }
   }
 
