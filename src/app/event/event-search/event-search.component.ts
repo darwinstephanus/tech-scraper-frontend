@@ -24,14 +24,19 @@ export class EventSearchComponent implements OnInit {
   }
 
   getEventsByDTO(): void {
-    this.eventService.getEventsByDTO(this.eventDTO)
+    //default
+    if(this.sortBy == null){
+      this.sortBy = 'eventId.name';
+      this.order = 'asc';
+    }
+    this.eventService.getEventsByDTO(this.eventDTO, this.sortBy, this.order)
       .subscribe(
         data => this.handleSuccessfulResponse(data),
     );
   }
 
   fetchEvents(): void{
-    this.eventService.getEventsByDTOSorted(this.eventDTO, this.sortBy, this.order).subscribe(
+    this.eventService.getEventsByDTO(this.eventDTO, this.sortBy, this.order).subscribe(
       response => this.handleSuccessfulResponse(response),
     );
   }

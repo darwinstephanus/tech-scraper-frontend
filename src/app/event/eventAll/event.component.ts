@@ -37,8 +37,6 @@ export class EventComponent implements OnInit {
   }
 
   fetchEvents(): void{
-    // console.log('sortBy: ', this.sortBy);
-    // console.log('order: ',this.order);
     this.eventService.getEvents(this.sortBy, this.order).subscribe(
       response => this.handleSuccessfulResponse(response),
     );
